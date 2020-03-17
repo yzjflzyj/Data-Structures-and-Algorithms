@@ -1,7 +1,5 @@
 package com.example.test;
 
-import com.example.test.POJO.Product;
-import jdk.swing.interop.SwingInterOpUtils;
 import lombok.Cleanup;
 import lombok.NonNull;
 import lombok.SneakyThrows;
@@ -20,8 +18,7 @@ class TestApplicationTests {
 
     @Test
     void contextLoads() {
-        //链式构造对象
-        Product product = Product.builder().id(1).name("可乐").brand("百事").build();
+
     }
 
     @Test
@@ -32,10 +29,7 @@ class TestApplicationTests {
 
     @Test
     public void heap() {
-        List<Product> productList = new ArrayList<>();
-        while (true) {
-            productList.add(Product.builder().build());
-        }
+
     }
 
     @SneakyThrows

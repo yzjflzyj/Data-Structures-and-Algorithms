@@ -25,16 +25,16 @@ public class SingleLinkedListDemo {
 		singleLinkedList.add(hero2);
 		singleLinkedList.add(hero3);
 
-		// ����һ�µ�����ķ�ת����
-		System.out.println("ԭ����������~~");
+
+		System.out.println("单链表为:");
 		singleLinkedList.list();
 		
 //		System.out.println("��ת������~~");
 //		reversetList(singleLinkedList.getHead());
 //		singleLinkedList.list();
 		
-		System.out.println("���������ӡ������, û�иı�����Ľṹ~~");
-		reversePrint(singleLinkedList.getHead());
+		//System.out.println("链表的头为:");
+		//reversePrint(singleLinkedList.getHead());
 		
 /*		
 		//���밴�ձ�ŵ�˳��
@@ -179,7 +179,7 @@ class SingleLinkedList {
 		}
 
 		if(flag) {
-			System.out.printf("׼�������Ӣ�۵ı�� %d �Ѿ�������, ���ܼ���\n", heroNode.no);
+			System.out.printf("编号为%d的节点已经存在\n", heroNode.no);
 		} else {
 			heroNode.next = temp.next;
 			temp.next = heroNode;
@@ -190,7 +190,7 @@ class SingleLinkedList {
 	public void update(HeroNode newHeroNode) {
 
 		if(head.next == null) {
-			System.out.println("����Ϊ��~");
+			System.out.println("该单链表为空");
 			return;
 		}
 
@@ -210,7 +210,7 @@ class SingleLinkedList {
 			temp.name = newHeroNode.name;
 			temp.nickname = newHeroNode.nickname;
 		} else {
-			System.out.printf("û���ҵ� ��� %d �Ľڵ㣬�����޸�\n", newHeroNode.no);
+			System.out.printf("没有找到编号为%d 的节点\n", newHeroNode.no);
 		}
 	}
 
@@ -230,13 +230,13 @@ class SingleLinkedList {
 		if(flag) {
 			temp.next = temp.next.next;
 		}else {
-			System.out.printf("Ҫɾ���� %d �ڵ㲻����\n", no);
+			System.out.printf("没有找到编号为%d的节点数据 \n", no);
 		}
 	}
 
 	public void list() {
 		if(head.next == null) {
-			System.out.println("����Ϊ��");
+			System.out.println("单链表为空");
 			return;
 		}
 		HeroNode temp = head.next;
