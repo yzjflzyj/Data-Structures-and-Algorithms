@@ -28,45 +28,46 @@ public class SingleLinkedListDemo {
 
 		System.out.println("单链表为:");
 		singleLinkedList.list();
+
+		System.out.println("单链表的反转链表为");
+		reversetList(singleLinkedList.getHead());
+		singleLinkedList.list();
+
+		System.out.println("单链表的反转打印为");
+		reversePrint(singleLinkedList.getHead());
+		System.out.println("单链表为");
+		singleLinkedList.list();
+
+
 		
-//		System.out.println("��ת������~~");
-//		reversetList(singleLinkedList.getHead());
-//		singleLinkedList.list();
-		
-		//System.out.println("链表的头为:");
-		//reversePrint(singleLinkedList.getHead());
-		
-/*		
-		//���밴�ձ�ŵ�˳��
+		//按节点的编号大小顺序构建单链表
 		singleLinkedList.addByOrder(hero1);
 		singleLinkedList.addByOrder(hero4);
 		singleLinkedList.addByOrder(hero2);
 		singleLinkedList.addByOrder(hero3);
-		
-		//��ʾһ��
+
+		//按顺序构建单链表
+		System.out.println("按编号顺序构建的链表为");
 		singleLinkedList.list();
-		
-		//�����޸Ľڵ�Ĵ���
-		HeroNode newHeroNode = new HeroNode(2, "С¬", "������~~");
+
+		//更新节点
+		HeroNode newHeroNode = new HeroNode(3, "猪九戒", "悟能");
 		singleLinkedList.update(newHeroNode);
-		
-		System.out.println("�޸ĺ���������~~");
+		System.out.println("更新后的链表为");
 		singleLinkedList.list();
-		
-		//ɾ��һ���ڵ�
-		singleLinkedList.del(1);
+
+		//删除节点
 		singleLinkedList.del(4);
-		System.out.println("ɾ������������~~");
+		System.out.println("删除节点后的链表为");
 		singleLinkedList.list();
-		
-		//����һ�� ����������Ч�ڵ�ĸ���
-		System.out.println("��Ч�Ľڵ����=" + getLength(singleLinkedList.getHead()));//2
-		
-		//����һ�¿����Ƿ�õ��˵�����K���ڵ�
-		HeroNode res = findLastIndexNode(singleLinkedList.getHead(), 3);
+
+		//获取链表有效长度
+		System.out.println("链表有效长度为=" + getLength(singleLinkedList.getHead()));
+
+		//获取倒数第k个节点
+		HeroNode res = findLastIndexNode(singleLinkedList.getHead(), 1);
 		System.out.println("res=" + res);
-*/		
-		
+
 	}
 
 
@@ -84,7 +85,8 @@ public class SingleLinkedListDemo {
 			System.out.println(stack.pop());
 		}
 	}
-	
+
+	//单链表反转
 	public static void reversetList(HeroNode head) {
 		if(head.next == null || head.next.next == null) {
 			return ;
@@ -102,6 +104,7 @@ public class SingleLinkedListDemo {
 		head.next = reverseHead.next;
 	}
 
+	//获取倒数第index的节点
 	public static HeroNode findLastIndexNode(HeroNode head, int index) {
 		if(head.next == null) {
 			return null;
