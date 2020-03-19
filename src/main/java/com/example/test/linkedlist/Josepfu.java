@@ -3,123 +3,112 @@ package com.example.test.linkedlist;
 public class Josepfu {
 
 	public static void main(String[] args) {
-		// ����һ�ѿ����������������ͱ����Ƿ�ok
+		//单向环形链表
 		CircleSingleLinkedList circleSingleLinkedList = new CircleSingleLinkedList();
-		circleSingleLinkedList.addBoy(125);// ����5��С���ڵ�
+		circleSingleLinkedList.addBoy(125);
 		circleSingleLinkedList.showBoy();
-		
-		//����һ��С����Ȧ�Ƿ���ȷ
-		circleSingleLinkedList.countBoy(10, 20, 125); // 2->4->1->5->3
-		//String str = "7*2*2-5+1-5+3-3";
+
+		circleSingleLinkedList.countBoy(10, 20, 125);
 	}
 
 }
 
-// ����һ�����εĵ�������
 class CircleSingleLinkedList {
-	// ����һ��first�ڵ�,��ǰû�б��
+
 	private Boy first = null;
 
-	// ���С���ڵ㣬������һ�����ε�����
 	public void addBoy(int nums) {
-		// nums ��һ������У��
 		if (nums < 1) {
-			System.out.println("nums��ֵ����ȷ");
+			System.out.println("单向环形链表长度必须不小于1");
 			return;
 		}
-		Boy curBoy = null; // ����ָ�룬����������������
-		// ʹ��for���������ǵĻ�������
+		Boy curBoy = null;
 		for (int i = 1; i <= nums; i++) {
-			// ���ݱ�ţ�����С���ڵ�
 			Boy boy = new Boy(i);
-			// ����ǵ�һ��С��
 			if (i == 1) {
 				first = boy;
-				first.setNext(first); // ���ɻ�
-				curBoy = first; // ��curBoyָ���һ��С��
+				first.setNext(first);
+				curBoy = first;
 			} else {
-				curBoy.setNext(boy);//
-				boy.setNext(first);//
+				curBoy.setNext(boy);
+				boy.setNext(first);
 				curBoy = boy;
 			}
 		}
 	}
 
-	// ������ǰ�Ļ�������
+	//遍历展示单向环形链表
 	public void showBoy() {
-		// �ж������Ƿ�Ϊ��
 		if (first == null) {
-			System.out.println("û���κ�С��~~");
+			System.out.println("双链表为空");
 			return;
 		}
-		// ��Ϊfirst���ܶ������������Ȼʹ��һ������ָ����ɱ���
+		//遍历展示单向环形链表
 		Boy curBoy = first;
 		while (true) {
-			System.out.printf("С���ı�� %d \n", curBoy.getNo());
-			if (curBoy.getNext() == first) {// ˵���Ѿ��������
+			System.out.printf("节点编号为%d\n", curBoy.getNo());
+			if (curBoy.getNext() == first) {
 				break;
 			}
-			curBoy = curBoy.getNext(); // curBoy����
+			curBoy = curBoy.getNext();
 		}
 	}
 
-	// �����û������룬�����С����Ȧ��˳��
+	// 出圈,即删除节点
 	/**
 	 * 
 	 * @param startNo
-	 *            ��ʾ�ӵڼ���С����ʼ����
+	 *            从第startNo个开始
 	 * @param countNum
-	 *            ��ʾ������
+	 *            数countNum个
 	 * @param nums
-	 *            ��ʾ����ж���С����Ȧ��
+	 *            环形的总个数
 	 */
 	public void countBoy(int startNo, int countNum, int nums) {
-		// �ȶ����ݽ���У��
 		if (first == null || startNo < 1 || startNo > nums) {
-			System.out.println("������������ ����������");
+			System.out.println("链表无法提取");
 			return;
 		}
-		// ����Ҫ������ָ��,�������С����Ȧ
+		//第一个节点
 		Boy helper = first;
-		// ���󴴽�һ������ָ��(����) helper , ����Ӧ��ָ����������������ڵ�
 		while (true) {
-			if (helper.getNext() == first) { // ˵��helperָ�����С���ڵ�
+			if (helper.getNext() == first) {
 				break;
 			}
 			helper = helper.getNext();
 		}
-		//С������ǰ������ first ��  helper �ƶ� k - 1��
+		//helper指向最后一个节点,first指向第一个节点
+		//数startNo个节点
 		for(int j = 0; j < startNo - 1; j++) {
 			first = first.getNext();
 			helper = helper.getNext();
 		}
-		//��С������ʱ����first �� helper ָ��ͬʱ ���ƶ�  m  - 1 ��, Ȼ���Ȧ
-		//������һ��ѭ��������֪��Ȧ��ֻ��һ���ڵ�
 		while(true) {
-			if(helper == first) { //˵��Ȧ��ֻ��һ���ڵ�
+			//只有一个节点
+			if(helper == first) {
 				break;
 			}
-			//�� first �� helper ָ��ͬʱ ���ƶ� countNum - 1
+			//以此从第一个节点算作1,因此要移动countNum - 1次指针
 			for(int j = 0; j < countNum - 1; j++) {
 				first = first.getNext();
 				helper = helper.getNext();
 			}
-			//��ʱfirstָ��Ľڵ㣬����Ҫ��Ȧ��С���ڵ�
-			System.out.printf("С��%d��Ȧ\n", first.getNo());
-			//��ʱ��firstָ���С���ڵ��Ȧ
+			//此时的first即是要删除的节点
+			System.out.printf("要删除的是编号是%d的节点\n", first.getNo());
+			//first前移一个,helper指向first
 			first = first.getNext();
-			helper.setNext(first); //
+			helper.setNext(first);
 			
 		}
-		System.out.printf("�������Ȧ�е�С�����%d \n", first.getNo());
+		System.out.printf("只剩下唯一一个编号为%d的节点\n", first.getNo());
 		
 	}
 }
 
-// ����һ��Boy�࣬��ʾһ���ڵ�
+
 class Boy {
-	private int no;// ���
-	private Boy next; // ָ����һ���ڵ�,Ĭ��null
+	private int no;
+	private Boy next;
 
 	public Boy(int no) {
 		this.no = no;
