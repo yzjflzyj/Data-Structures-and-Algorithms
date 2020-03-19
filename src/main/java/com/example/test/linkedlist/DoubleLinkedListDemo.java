@@ -3,31 +3,30 @@ package com.example.test.linkedlist;
 public class DoubleLinkedListDemo {
 
 	public static void main(String[] args) {
-		// ����
-		System.out.println("˫������Ĳ���");
-		// �ȴ����ڵ�
-		HeroNode2 hero1 = new HeroNode2(1, "�ν�", "��ʱ��");
-		HeroNode2 hero2 = new HeroNode2(2, "¬����", "������");
-		HeroNode2 hero3 = new HeroNode2(3, "����", "�Ƕ���");
-		HeroNode2 hero4 = new HeroNode2(4, "�ֳ�", "����ͷ");
-		// ����һ��˫������
+		//
+		HeroNode2 hero1 = new HeroNode2(1, "关羽", "云长");
+		HeroNode2 hero2 = new HeroNode2(2, "张飞", "翼德");
+		HeroNode2 hero3 = new HeroNode2(3, "赵云", "子龙");
+		HeroNode2 hero4 = new HeroNode2(4, "马超", "孟起");
+		//创建双链表
 		DoubleLinkedList doubleLinkedList = new DoubleLinkedList();
 		doubleLinkedList.add(hero1);
 		doubleLinkedList.add(hero2);
 		doubleLinkedList.add(hero3);
 		doubleLinkedList.add(hero4);
-		
+
+		//展示双链表
 		doubleLinkedList.list();
 		
-		// �޸�
-		HeroNode2 newHeroNode = new HeroNode2(4, "����ʤ", "������");
+		//更新节点
+		HeroNode2 newHeroNode = new HeroNode2(4, "黄忠", "汉升");
 		doubleLinkedList.update(newHeroNode);
-		System.out.println("�޸ĺ���������");
+		System.out.println("更新后的双链表为");
 		doubleLinkedList.list();
 		
-		// ɾ��
+		//删除节点
 		doubleLinkedList.del(3);
-		System.out.println("ɾ������������~~");
+		System.out.println("删除节点后的双链表为");
 		doubleLinkedList.list();
 		
 		
@@ -36,141 +35,115 @@ public class DoubleLinkedListDemo {
 
 }
 
-// ����һ��˫���������
+// 双链表
 class DoubleLinkedList {
 
-	// �ȳ�ʼ��һ��ͷ�ڵ�, ͷ�ڵ㲻Ҫ��, ����ž��������
 	private HeroNode2 head = new HeroNode2(0, "", "");
 
-	// ����ͷ�ڵ�
+	//获取双链表的头节点
 	public HeroNode2 getHead() {
 		return head;
 	}
 
-	// ����˫������ķ���
-	// ��ʾ����[����]
+	// 展示双链表
 	public void list() {
-		// �ж������Ƿ�Ϊ��
+		// 除头节点外链表为空
 		if (head.next == null) {
-			System.out.println("����Ϊ��");
+			System.out.println("链表为空");
 			return;
 		}
-		// ��Ϊͷ�ڵ㣬���ܶ������������Ҫһ����������������
+		//
 		HeroNode2 temp = head.next;
 		while (true) {
-			// �ж��Ƿ��������
 			if (temp == null) {
 				break;
 			}
-			// ����ڵ����Ϣ
+			//遍历打印各个节点
 			System.out.println(temp);
-			// ��temp���ƣ� һ��С��
 			temp = temp.next;
 		}
 	}
 
-	// ���һ���ڵ㵽˫����������.
+	// 双链表末尾添加节点
 	public void add(HeroNode2 heroNode) {
 
-		// ��Ϊhead�ڵ㲻�ܶ������������Ҫһ���������� temp
 		HeroNode2 temp = head;
-		// ���������ҵ����
 		while (true) {
-			// �ҵ���������
-			if (temp.next == null) {//
+			if (temp.next == null) {
 				break;
 			}
-			// ���û���ҵ����, ����temp����
 			temp = temp.next;
 		}
-		// ���˳�whileѭ��ʱ��temp��ָ������������
-		// �γ�һ��˫������
 		temp.next = heroNode;
 		heroNode.pre = temp;
 	}
 
-	// �޸�һ���ڵ������, ���Կ���˫������Ľڵ������޸ĺ͵�������һ��
-	// ֻ�� �ڵ����͸ĳ� HeroNode2
+	//更新节点
 	public void update(HeroNode2 newHeroNode) {
-		// �ж��Ƿ��
 		if (head.next == null) {
-			System.out.println("����Ϊ��~");
+			System.out.println("双链表为空");
 			return;
 		}
-		// �ҵ���Ҫ�޸ĵĽڵ�, ����no���
-		// ����һ����������
+
 		HeroNode2 temp = head.next;
-		boolean flag = false; // ��ʾ�Ƿ��ҵ��ýڵ�
+		boolean flag = false;
 		while (true) {
 			if (temp == null) {
-				break; // �Ѿ�����������
+				break;
 			}
 			if (temp.no == newHeroNode.no) {
-				// �ҵ�
 				flag = true;
 				break;
 			}
 			temp = temp.next;
 		}
-		// ����flag �ж��Ƿ��ҵ�Ҫ�޸ĵĽڵ�
 		if (flag) {
 			temp.name = newHeroNode.name;
 			temp.nickname = newHeroNode.nickname;
-		} else { // û���ҵ�
-			System.out.printf("û���ҵ� ��� %d �Ľڵ㣬�����޸�\n", newHeroNode.no);
+		} else {
+			System.out.printf("没有找到编号为%d 的节点\n", newHeroNode.no);
 		}
 	}
 
-	// ��˫��������ɾ��һ���ڵ�,
-	// ˵��
-	// 1 ����˫���������ǿ���ֱ���ҵ�Ҫɾ��������ڵ�
-	// 2 �ҵ�������ɾ������
+	//删除节点
 	public void del(int no) {
 
-		// �жϵ�ǰ�����Ƿ�Ϊ��
-		if (head.next == null) {// ������
-			System.out.println("����Ϊ�գ��޷�ɾ��");
+		if (head.next == null) {
+			System.out.println("双链表为空");
 			return;
 		}
 
-		HeroNode2 temp = head.next; // ��������(ָ��)
-		boolean flag = false; // ��־�Ƿ��ҵ���ɾ���ڵ��
+		HeroNode2 temp = head.next;
+		boolean flag = false;
 		while (true) {
-			if (temp == null) { // �Ѿ�����������
+			if (temp == null) {
 				break;
 			}
 			if (temp.no == no) {
-				// �ҵ��Ĵ�ɾ���ڵ��ǰһ���ڵ�temp
 				flag = true;
 				break;
 			}
-			temp = temp.next; // temp���ƣ�����
+			temp = temp.next;
 		}
-		// �ж�flag
-		if (flag) { // �ҵ�
-			// ����ɾ��
-			// temp.next = temp.next.next;[��������]
+		if (flag) {
 			temp.pre.next = temp.next;
-			// �������ǵĴ���������?
-			// ��������һ���ڵ㣬�Ͳ���Ҫִ��������仰��������ֿ�ָ��
 			if (temp.next != null) {
 				temp.next.pre = temp.pre;
 			}
 		} else {
-			System.out.printf("Ҫɾ���� %d �ڵ㲻����\n", no);
+			System.out.printf("没有找到编号为%d的节点\n", no);
 		}
 	}
 
 }
 
-// ����HeroNode2 �� ÿ��HeroNode �������һ���ڵ�
+// 对象HeroNode2
 class HeroNode2 {
 	public int no;
 	public String name;
 	public String nickname;
-	public HeroNode2 next; // ָ����һ���ڵ�, Ĭ��Ϊnull
-	public HeroNode2 pre; // ָ��ǰһ���ڵ�, Ĭ��Ϊnull
-	// ������
+	public HeroNode2 next;
+	public HeroNode2 pre;
 
 	public HeroNode2(int no, String name, String nickname) {
 		this.no = no;
@@ -178,7 +151,6 @@ class HeroNode2 {
 		this.nickname = nickname;
 	}
 
-	// Ϊ����ʾ��������������toString
 	@Override
 	public String toString() {
 		return "HeroNode [no=" + no + ", name=" + name + ", nickname=" + nickname + "]";
