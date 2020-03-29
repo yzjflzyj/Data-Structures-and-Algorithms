@@ -80,7 +80,7 @@ class ArrayStack2 {
     private int[] stack;
     private int top = -1;
 
-    //¹¹ÔìÆ÷
+    //构造
     public ArrayStack2(int maxSize) {
         this.maxSize = maxSize;
         stack = new int[this.maxSize];
