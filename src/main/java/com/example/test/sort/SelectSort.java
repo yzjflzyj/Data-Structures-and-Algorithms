@@ -27,6 +27,10 @@ public class SelectSort {
         System.out.println("排序后的数组为" + Arrays.toString(arr));
     }
 
+    /**
+     * 选择排序
+     * @param arr
+     */
     public static void selectSort(int[] arr) {
         int minVal,index;
         for (int i = 0; i < arr.length; i++) {

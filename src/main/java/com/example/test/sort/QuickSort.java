@@ -27,6 +27,12 @@ public class QuickSort {
         System.out.println("排序后的数组为" + Arrays.toString(arr));
     }
 
+    /**
+     * 快速排序
+     * @param arr
+     * @param left
+     * @param right
+     */
     private static void quickSort(int[] arr, int left, int right) {
         int l = left;
         int r = right;

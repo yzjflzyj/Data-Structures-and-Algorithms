@@ -27,6 +27,10 @@ public class BubbleSort {
         System.out.println("排序后的数组为" + Arrays.toString(arr));
     }
 
+    /**
+     * 冒泡排序
+     * @param arr
+     */
     public static void bubbleSort(int[] arr) {
         //使用冒泡排序
         int temp = 0;
