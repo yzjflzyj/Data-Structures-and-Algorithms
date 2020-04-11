@@ -18,7 +18,7 @@ public class ShellSort {
         String date1Str = simpleDateFormat.format(data1);
         System.out.println("排序前的时间是=" + date1Str);
 
-        shellSort1(arr);
+        shellSort(arr);
 
         Date data2 = new Date();
         String date2Str = simpleDateFormat.format(data2);
@@ -30,7 +30,7 @@ public class ShellSort {
      * 分组插入排序
      * @param arr
      */
-    public static void shellSort1(int[] arr) {
+    public static void shellSort(int[] arr) {
         int insertVal;
         int index;
         for (int gap = arr.length / 2; gap > 0; gap /= 2) {

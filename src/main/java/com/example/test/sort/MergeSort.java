@@ -28,6 +28,13 @@ public class MergeSort {
         System.out.println("排序后的数组为" + Arrays.toString(arr));
     }
 
+    /**
+     * 归并排序
+     * @param arr 需要排序的数组
+     * @param left 需要排序的左索引
+     * @param right 需要排序的左索引
+     * @param temp  工具数组
+     */
     public static void mergeSort(int[] arr, int left, int right, int[] temp) {
         if (left < right) {
             int mid = (left + right) / 2;
