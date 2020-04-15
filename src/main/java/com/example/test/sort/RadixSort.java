@@ -1,30 +1,17 @@
 package com.example.test.sort;
 
-import java.text.SimpleDateFormat;
-import java.util.Arrays;
-import java.util.Date;
+import com.example.test.Utils.Utils;
 
 public class RadixSort {
     public static void main(String[] args) {
-        //创建0-100000之间的随机数组
-        int[] arr = new int[100000];
-        for (int i = 0; i < 100000; i++) {
-            arr[i] = (int) (Math.random() * 8000000); // 生成一个[0, 8000000) 数
-        }
-        //int[] arr = {101, 21, 40, 16, 113, 5, 18, 19, 7000, 1230};
-        System.out.println("排序前的数组为" + Arrays.toString(arr));
-        Date data1 = new Date();
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        String date1Str = simpleDateFormat.format(data1);
-        System.out.println("排序前的时间是=" + date1Str);
 
+        int[] arr = {1, 2, 4, 6, 3, 5, 8, 9, 7, 0};
+//        int[] arr = Utils.autoCreateArray(10, 10);
+        Utils.timePrint(arr);
         int[] temp = new int[arr.length];
         radixSort(arr);
-
-        Date data2 = new Date();
-        String date2Str = simpleDateFormat.format(data2);
-        System.out.println("排序前的时间是=" + date2Str);
-        System.out.println("排序后的数组为" + Arrays.toString(arr));
+        if (Utils.isSorted(arr)) System.out.println("数组已经排好序了");
+        Utils.timePrint(arr);
     }
 
 
@@ -55,17 +42,17 @@ public class RadixSort {
                 bucketElementCounts[digitOfElement]++;
             }
 
-            int index=0;
+            int index = 0;
             //遍历二维数组
             for (int k = 0; k < bucketElementCounts.length; k++) {
-                if (bucketElementCounts[k]>0){
+                if (bucketElementCounts[k] > 0) {
                     for (int t = 0; t < bucketElementCounts[k]; t++) {
                         arr[index] = bucket[t][k];
                         index++;
                     }
                 }
                 //每个桶中个数要清零,下一位重新计算,而二维数组不必清零,因为是先赋值再使用,会覆盖掉的,多余的也不会使用
-                bucketElementCounts[k]=0;
+                bucketElementCounts[k] = 0;
             }
 
         }
