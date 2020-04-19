@@ -13,7 +13,7 @@ public class SeqSearch {
     }
 
     /**
-     * 这里我们实现的线性查找是找到一个满足条件的值，就返回
+     * 顺序(线性)查找,这里我们实现的线性查找是找到一个满足条件的值，就返回
      * @param arr
      * @param value
      * @return
