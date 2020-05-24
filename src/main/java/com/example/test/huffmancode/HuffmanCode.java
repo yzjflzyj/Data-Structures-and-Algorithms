@@ -15,62 +15,42 @@ import java.util.Map;
 
 public class HuffmanCode {
 
+	//生成赫夫曼树对应的赫夫曼编码
+	//思路:
+	//1. 将赫夫曼编码表存放在 Map<Byte,String> 形式
+	//   生成的赫夫曼编码表{32=01, 97=100, 100=11000, 117=11001, 101=1110, 118=11011, 105=101, 121=11010, 106=0010, 107=1111, 108=000, 111=0011}
+	static Map<Byte, String> huffmanCodes = new HashMap<Byte,String>();
+	//2. 在生成赫夫曼编码表示，需要去拼接路径, 定义一个StringBuilder 存储某个叶子结点的路径
+	static StringBuilder stringBuilder = new StringBuilder();
+
 	public static void main(String[] args) {
-		
-		//测试压缩文件
-//		String srcFile = "d://Uninstall.xml";
-//		String dstFile = "d://Uninstall.zip";
-//		
-//		zipFile(srcFile, dstFile);
-//		System.out.println("压缩文件ok~~");
-		
-		
-		//测试解压文件
-		String zipFile = "d://Uninstall.zip";
-		String dstFile = "d://Uninstall2.xml";
-		unZipFile(zipFile, dstFile);
-		System.out.println("解压成功!");
-		
-		/*
+
+
+		//1.测试数据压缩
 		String content = "i like like like java do you like a java";
 		byte[] contentBytes = content.getBytes();
 		System.out.println(contentBytes.length); //40
-		
 		byte[] huffmanCodesBytes= huffmanZip(contentBytes);
 		System.out.println("压缩后的结果是:" + Arrays.toString(huffmanCodesBytes) + " 长度= " + huffmanCodesBytes.length);
+
 		
-		
-		//测试一把byteToBitString方法
-		//System.out.println(byteToBitString((byte)1));
+		//2,测试数据进行解压(解码)
 		byte[] sourceBytes = decode(huffmanCodes, huffmanCodesBytes);
-		
-		System.out.println("原来的字符串=" + new String(sourceBytes)); // "i like like like java do you like a java"
-		*/
-		
-		
-		
-		//如何将 数据进行解压(解码)  
-		//分步过程
-		/*
-		List<Node> nodes = getNodes(contentBytes);
-		System.out.println("nodes=" + nodes);
-		
-		//测试一把，创建的赫夫曼树
-		System.out.println("赫夫曼树");
-		Node huffmanTreeRoot = createHuffmanTree(nodes);
-		System.out.println("前序遍历");
-		huffmanTreeRoot.preOrder();
-		
-		//测试一把是否生成了对应的赫夫曼编码
-		Map<Byte, String> huffmanCodes = getCodes(huffmanTreeRoot);
-		System.out.println("~生成的赫夫曼编码表= " + huffmanCodes);
-		
-		//测试
-		byte[] huffmanCodeBytes = zip(contentBytes, huffmanCodes);
-		System.out.println("huffmanCodeBytes=" + Arrays.toString(huffmanCodeBytes));//17
-		
-		//发送huffmanCodeBytes 数组 */
-		
+		System.out.println("原来的字符串=" + new String(sourceBytes));
+
+		//3,测试压缩文件
+		String srcFile = "d://Uninstall.xml";
+		String dstFile = "d://Uninstall.zip";
+		zipFile(srcFile, dstFile);
+		System.out.println("压缩文件ok~~");
+
+
+		//4.测试解压文件
+		/*String zipFile = "d://Uninstall.zip";
+		String dstFile = "d://Uninstall2.xml";
+		unZipFile(zipFile, dstFile);
+		System.out.println("解压成功!");*/
+
 		
 	}
 	
@@ -169,12 +149,7 @@ public class HuffmanCode {
 		}
 		
 	}
-	
-	//完成数据的解压
-	//思路
-	//1. 将huffmanCodeBytes [-88, -65, -56, -65, -56, -65, -55, 77, -57, 6, -24, -14, -117, -4, -60, -90, 28]
-	//   重写先转成 赫夫曼编码对应的二进制的字符串 "1010100010111..."
-	//2.  赫夫曼编码对应的二进制的字符串 "1010100010111..." =》 对照 赫夫曼编码  =》 "i like like like java do you like a java"
+
 	
 	
 	//编写一个方法，完成对压缩数据的解码
@@ -294,13 +269,7 @@ public class HuffmanCode {
 		for(byte b: bytes) {
 			stringBuilder.append(huffmanCodes.get(b));
 		}
-		
-		//System.out.println("测试 stringBuilder~~~=" + stringBuilder.toString());
-		
-		//将 "1010100010111111110..." 转成 byte[]
-		
-		//统计返回  byte[] huffmanCodeBytes 长度
-		//一句话 int len = (stringBuilder.length() + 7) / 8;
+
 		int len;
 		if(stringBuilder.length() % 8 == 0) {
 			len = stringBuilder.length() / 8;
@@ -324,14 +293,7 @@ public class HuffmanCode {
 		return huffmanCodeBytes;
 	}
 	
-	//生成赫夫曼树对应的赫夫曼编码
-	//思路:
-	//1. 将赫夫曼编码表存放在 Map<Byte,String> 形式
-	//   生成的赫夫曼编码表{32=01, 97=100, 100=11000, 117=11001, 101=1110, 118=11011, 105=101, 121=11010, 106=0010, 107=1111, 108=000, 111=0011}
-	static Map<Byte, String> huffmanCodes = new HashMap<Byte,String>();
-	//2. 在生成赫夫曼编码表示，需要去拼接路径, 定义一个StringBuilder 存储某个叶子结点的路径
-	static StringBuilder stringBuilder = new StringBuilder();
-	
+
 	
 	//为了调用方便，我们重载 getCodes
 	private static Map<Byte, String> getCodes(Node root) {
