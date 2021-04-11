@@ -19,6 +19,13 @@ public class Utils {
         System.out.println("当前时间是=" + dateStr);
     }
 
+    public static void timePrint(String str){
+        Date data = new Date();
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        String dateStr = simpleDateFormat.format(data);
+        System.out.println(str+"当前时间是=" + dateStr);
+    }
+
 
     /**
      * 随机自动生成a个在[0, b)范围内的数组
