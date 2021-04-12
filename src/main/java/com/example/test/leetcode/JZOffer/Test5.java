@@ -9,7 +9,13 @@ public class Test5 {
     限制：0 <= s 的长度 <= 10000*/
    public static void main(String[] args) {
       method1();
-      //str.replace("%20")  性能不好
+      method2();
+   }
+
+   private static void method2() {
+      String str="we   are happy";
+      String newStr = str.replace(" ", "%20");
+      System.out.println(newStr);
    }
 
    //字符数组

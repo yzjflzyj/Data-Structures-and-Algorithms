@@ -34,12 +34,10 @@ public class Test3 {
         Utils.timePrint("方法二开始:");
         HashSet hashSet = new HashSet();
         for (int i = 0; i < arr.length; i++) {
-            if(!hashSet.contains(arr[i])){
-                hashSet.add(arr[i]);
-            }else{
+            if(!hashSet.add(arr[i])){
                 System.out.println("重复的其中一个数字是"+arr[i]);
                 Utils.timePrint("方法二结束:");
-                return;
+                break;
             }
         }
     }

@@ -46,6 +46,9 @@ public class Test4 {
         //1.先找到比目标数小的,然后再逐渐增大的比,即1.1列数减小,行数增大的顺序比       或者      1.2行数减小,列数增大的顺序比;
         //2.先找到比目标数大的,然后再逐渐减小的比,即2.1列数增大,行数减小的顺序比       或者      2.2行数增大,列数减小的顺序比;
         //在此选择2.1 先找比目标数大的,再减小的比, 列数逐渐增大,行数逐渐减小.
+        if (matrix == null || matrix.length == 0 || matrix[0].length == 0) {
+            return;
+        }
         int rows=matrix.length;
         int columns=matrix[0].length;
         int row=rows-1,column=0;
