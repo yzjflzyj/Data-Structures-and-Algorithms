@@ -19,6 +19,8 @@ public class Test4 {
         限制：
         0 <= n <= 1000
         0 <= m <= 1000*/
+
+        //造数
         int target=5;
         int [][] matrix=new int [5][5];
         matrix[0]=new int[]{1,4,7,11,15};
@@ -26,7 +28,9 @@ public class Test4 {
         matrix[2]=new int[]{3,6,9,16,22};
         matrix[3]=new int[]{10,13,14,17,24};
         matrix[4]=new int[]{18,21,23,26,30};
+
         method1(matrix,target);
+        //另一种方法是暴力算法, 直接遍历整个二维数组
     }
 
     /**
