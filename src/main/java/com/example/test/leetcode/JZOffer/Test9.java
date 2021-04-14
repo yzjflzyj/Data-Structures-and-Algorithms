@@ -11,29 +11,30 @@ public class Test9 {
           最多会对 appendTail、deleteHead 进行 10000 次调用*/
 
         //思路:一个栈进,一个栈出
-        Stack in =new Stack();
-        Stack out =new Stack();
-        appendTail(in,out,1);
-        appendTail(in,out,2);
-        appendTail(in,out,3);
-        deleteHead(in,out);
-        deleteHead(in,out);
-        deleteHead(in,out);
+        Stack in = new Stack();
+        Stack out = new Stack();
+        appendTail(in, out, 1);
+        appendTail(in, out, 2);
+        appendTail(in, out, 3);
+        int a = deleteHead(in, out);
+        int b =deleteHead(in, out);
+        int c =deleteHead(in, out);
+        int d =deleteHead(in, out);
     }
 
-    public static void appendTail(Stack in,Stack out,int e){
-        int len=out.size();
+    public static void appendTail(Stack in, Stack out, int e) {
+        int len = out.size();
         for (int i = 0; i < len; i++) {
             in.push(out.pop());
         }
         in.push(e);
     }
 
-    public static void deleteHead(Stack in,Stack out){
-        int len=in.size();
+    public static int deleteHead(Stack in, Stack out) {
+        int len = in.size();
         for (int i = 0; i < len; i++) {
             out.push(in.pop());
         }
-        out.pop();
+        return out.size() > 0 ? (int) out.pop() : -1;
     }
 }
