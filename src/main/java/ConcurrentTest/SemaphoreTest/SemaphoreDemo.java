@@ -13,8 +13,7 @@ public class SemaphoreDemo {
                 try {
                     semaphore.acquire();
                     System.out.println(temp+"\t获得资源");
-                    try {
-                        TimeUnit.SECONDS.sleep(3); } catch(InterruptedException e) {e.printStackTrace(); }
+                    try { TimeUnit.SECONDS.sleep(3); } catch(InterruptedException e) {e.printStackTrace(); }
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }finally {
