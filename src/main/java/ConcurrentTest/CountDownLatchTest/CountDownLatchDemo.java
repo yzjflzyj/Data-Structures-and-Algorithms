@@ -5,6 +5,10 @@ import java.util.concurrent.CountDownLatch;
 public class CountDownLatchDemo {
     public static void main(String[] args) {
         countDownLatchTest();
+        //EnumTest();
+    }
+
+    private static void EnumTest() {
         CountDownLatch countDownLatch = new CountDownLatch(6);
         for (int i = 1; i <= 6; i++) {
             new Thread(() -> {
@@ -29,7 +33,7 @@ public class CountDownLatchDemo {
             }, String.valueOf(i)).start();
         }
         try {
-            countDownLatch.await();
+            countDownLatch.await();//确保到countDownLatch的count到0,才往后执行
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
