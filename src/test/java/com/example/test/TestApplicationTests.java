@@ -1,7 +1,6 @@
 package com.example.test;
 
 import lombok.Cleanup;
-import lombok.NonNull;
 import lombok.SneakyThrows;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
@@ -9,8 +8,6 @@ import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.io.*;
-import java.util.ArrayList;
-import java.util.List;
 
 @EnableAutoConfiguration(exclude = {DataSourceAutoConfiguration.class})
 @SpringBootTest
