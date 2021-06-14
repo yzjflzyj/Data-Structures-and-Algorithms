@@ -21,7 +21,7 @@ public class CalcServiceImplTest {
         System.out.println(String.format("Spring Verision : %s, Sring Boot Version : %s.", //
                 SpringVersion.getVersion(), SpringBootVersion.getVersion()));
         System.out.println();
-        //calcService.div(1, 2);
-        calcService.div(1, 0);
+        //calcService.div(1, 2);//aop的正常测试
+        calcService.div(1, 0);//aop的异常测试
     }
 }

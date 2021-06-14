@@ -20,11 +20,11 @@
         <property name="serviceAA" ref="a"></property>
     </bean>-->
 
-    <bean id="a" class="com.example.test.springTest.aopDemo.service.ServiceAA" scope="prototype">
+    <bean id="a" class="com.example.test.springTest.aopDemo.service.ServiceAA" scope="singleton">
         <property name="serviceBB" ref="b"></property>
     </bean>
 
-    <bean id="b" class="com.example.test.springTest.aopDemo.service.ServiceBB" scope="prototype">
+    <bean id="b" class="com.example.test.springTest.aopDemo.service.ServiceBB" scope="singleton">
         <property name="serviceAA" ref="a"></property>
     </bean>
 
