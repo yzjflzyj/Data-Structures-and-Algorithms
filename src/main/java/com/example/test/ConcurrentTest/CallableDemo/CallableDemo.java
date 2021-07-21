@@ -7,6 +7,10 @@ import java.util.concurrent.FutureTask;
 public class CallableDemo {
 
     public static void main(String[] args) {
+        /**
+         * FutureTask类实现了RunnableFuture接口,RunnableFuture接口是Runnable接口的子接口
+         * 体现了适配器默认的设计模式思想
+         */
         FutureTask<Integer> futureTask = new FutureTask<>(new MyThread());
         Thread t = new Thread(futureTask, "threadName");
         t.start();

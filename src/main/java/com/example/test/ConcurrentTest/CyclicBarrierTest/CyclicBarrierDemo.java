@@ -8,6 +8,10 @@ public class CyclicBarrierDemo {
         CyclicBarrierTest();
     }
 
+    /**
+     * 与CountDownLatch的区别在于CyclicBarrier是可以循环的,即例如,在while循环里多个线程进行任务,每个线程到达某个点后
+       等待各个线程到齐后,进行总任务后,继续进行各个分线程的循环任务
+     */
     private static void CyclicBarrierTest() {
         CyclicBarrier cyclicBarrier = new CyclicBarrier(10,()->{System.out.println("班长锁门走了");});
         for (int i = 0; i < 10; i++) {

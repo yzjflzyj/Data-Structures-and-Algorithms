@@ -9,6 +9,11 @@ public class Test {
 
     public static void main(String[] args) {
 
+        /*
+        1.可见性
+        2.有序性,禁止指令重排
+        3.非原子性
+        * */
 
         //volatile的可见性验证
         MyData myData = new MyData();
@@ -18,7 +23,7 @@ public class Test {
 
     }
 
-    //验证volatile原子性
+    //验证volatile原子性,不支持原子性
     //原子类java.util.concurrent.atomic下的类,保证原子性:unsafe类,应用CAS思想,利用cpu原语保证原子性.
     private static void volatileAtom(MyData myData) {
         for (int i = 0; i < 10; i++) {
@@ -38,7 +43,7 @@ public class Test {
         System.out.println(myData.atomicInteger);
     }
 
-    /*验证volatile的可见性
+    /*验证volatile的可见性,强制刷出主内存数据到各线程的工作内存
      * @Author codeHu
      * @Description
      * @Date 20:43 2021/4/30

@@ -1,6 +1,10 @@
 package com.example.test.ConcurrentTest.InterviewTest;
 
+import com.sun.scenario.effect.impl.sw.sse.SSEBlend_SRC_OUTPeer;
+
 import java.util.Scanner;
+import java.util.concurrent.ArrayBlockingQueue;
+import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.locks.Condition;
@@ -13,9 +17,11 @@ public class DoubleThreadPrintNumber {
     private static CountDownLatch countDownLatch = new CountDownLatch(2);
 
     public static void main(String[] args) throws InterruptedException {
+
+        //其他思路volatile的标志位,两个线程相互翻转状态
         System.out.println("请输入要执行的操作：");
-        System.out.println("1、使用CountDownLatch实现");
-        System.out.println("2、使用syncchronized实现");
+        System.out.println("1、使用blockQueue实现");
+        System.out.println("2、使用synchronized实现");
         System.out.println("3、使用AtomicInteger实现");
         //创建Scanner对象，接受从控制台输入
         Scanner input = new Scanner(System.in);
@@ -23,7 +29,7 @@ public class DoubleThreadPrintNumber {
         String str = input.next();
         switch (str) {
             case "1":
-                doCountDownLatch();
+                doBlockQueue();
                 break;
             case "2":
                 doSynchronized();
@@ -32,52 +38,46 @@ public class DoubleThreadPrintNumber {
                 doAtomicInteger();
                 break;
             default:
-                doAtomicInteger();
+                break;
         }
     }
 
     /**
-     * countdownlatch 实现
+     * 利用阻塞队列的阻塞等待来实现交替
      */
-    private static void doCountDownLatch() {
-        Thread t1 = new Thread() {
-            @Override
+    private static void doBlockQueue() {
+        final BlockingQueue<Integer> blockingQueue1 = new ArrayBlockingQueue<Integer>(1);
+        final BlockingQueue<Integer> blockingQueue2 = new ArrayBlockingQueue<Integer>(1);
+        new Thread(new Runnable() {
             public void run() {
-                while (num.intValue() < 100) {
-                    if (num.intValue() % 2 == 1) {
-
-                        System.out.println("奇数线程:" + num.intValue());
-                        num.incrementAndGet();
+                for (int i = 1; i <= 100; i = i + 2) {
+                    try {
+                        blockingQueue1.put(i);
+                        System.out.println("队列2:"+blockingQueue2.take());
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
                     }
-                    countDownLatch.countDown();
                 }
             }
-        };
-
-        Thread t2 = new Thread() {
-            @Override
+        }).start();
+        new Thread(new Runnable() {
             public void run() {
-                while (num.intValue() <= 100) {
-                    if (num.intValue() % 2 == 0) {
-                        System.out.println("偶数线程:" + num.intValue());
-                        num.incrementAndGet();
+                for (int i = 2; i <= 100; i = i + 2) {
+                    try {
+                        System.out.println("队列1:"+blockingQueue1.take());
+                        blockingQueue2.put(i);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
                     }
-                    countDownLatch.countDown();
                 }
             }
-        };
-        t1.start();
-        t2.start();
-        try {
-            countDownLatch.await();
-
-        } catch (Throwable e) {
-            System.out.println(e);
-        }
+        }).start();
     }
 
+
     /**
-     * synchronized 关键字实现
+     * synchronized的notify和wait
+     * ReentrantLock,和condition的signal和await
      */
     private static void doSynchronized() {
         int TOTAL = 100;
@@ -91,7 +91,6 @@ public class DoubleThreadPrintNumber {
                     } else {
                         try {
                             System.out.println("奇数锁等待");
-
                             lock.wait();
                         } catch (InterruptedException e) {
                             e.printStackTrace();
@@ -136,9 +135,9 @@ public class DoubleThreadPrintNumber {
             @Override
             public void run() {
                 for (; num.intValue() <= 100; ) {
-                    if (num.intValue() % 3 == 0) {
+                    if (num.intValue() % 2 == 1) {
                         // reentrantLock.lock();
-                        System.out.println(num.intValue());
+                        System.out.println("线程1:" + num.intValue());
                         num.addAndGet(1);
                         //reentrantLock.unlock();
                     } else {
@@ -152,25 +151,8 @@ public class DoubleThreadPrintNumber {
             @Override
             public void run() {
                 for (; num.intValue() <= 100; ) {
-                    if (num.intValue() % 3 == 1) {
-                        System.out.println(num.intValue());
-                        num.addAndGet(1);
-                        //    reentrantLock.unlock();
-
-                    } else {
-                        //  reentrantLock.lock();
-
-                    }
-                }
-            }
-        }).start();
-        // 第二个线程
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                for (; num.intValue() <= 100; ) {
-                    if (num.intValue() % 3 == 2) {
-                        System.out.println(num.intValue());
+                    if (num.intValue() % 2 == 0) {
+                        System.out.println("线程2:" + num.intValue());
                         num.addAndGet(1);
                         //    reentrantLock.unlock();
 

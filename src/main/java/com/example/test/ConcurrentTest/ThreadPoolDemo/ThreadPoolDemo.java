@@ -1,6 +1,6 @@
 package com.example.test.ConcurrentTest.ThreadPoolDemo;
 
-import java.util.concurrent.Executors;
+import java.util.concurrent.*;
 
 public class ThreadPoolDemo {
     public static void main(String[] args) {
@@ -19,5 +19,57 @@ public class ThreadPoolDemo {
              第二点好处是，由于谁提交任务谁就要负责执行任务，这样提交任务的线程就得负责执行任务，而执行任务又是比较耗时的，在这段期间，提交任务的线程被占用，也就不会再提交新的任务，减缓了任务提交的速度，相当于是一个负反馈。
                   在此期间，线程池中的线程也可以充分利用这段时间来执行掉一部分任务，腾出一定的空间，相当于是给了线程池一定的缓冲期。
         * */
+
+        /*
+        * 线程池可以提交Runnable(包含FutureTask)和Callable接口(返回值是Future接口)
+        * 线程只能提交Runnable接口(包含FutureTask)
+        * */
+        //线程池提交Runnable接口
+        ExecutorService executorService = Executors.newFixedThreadPool(5);
+        Future<Integer> future1 = executorService.submit(() -> {
+            return 512;
+        });
+        try {
+            Integer integer1 = future1.get();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
+        /**
+         * FutureTask类实现了RunnableFuture接口,RunnableFuture接口是Runnable接口的子接口
+         * 体现了适配器默认的设计模式思想
+         * FutureTask类实现了Future接口
+         */
+        //线程池提交FutureTask
+        FutureTask<Integer> futureTask=new FutureTask(new MyThread());
+        executorService.submit(futureTask);
+        try {
+            Integer integer2 = futureTask.get();//Future的get方法还可以带过期时间,在时间内阻塞;还存在cancel方法取消正在执行的任务,还有isDone的判断完成的方法
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
+        //线程池提交Callable接口
+        Future<Integer> future3 = executorService.submit(new MyThread());
+        try {
+            Integer integer3 = future3.get();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
+
+    }
+}
+
+
+class MyThread implements Callable<Integer> {
+
+    @Override
+    public Integer call() throws Exception {
+        System.out.println("实现Callable call方法");
+        return 1024;
     }
 }
