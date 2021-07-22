@@ -12,7 +12,7 @@ public class OOMMetaspaceDemo {
 
     /**
      * -XX:MetaspaceSize=10m -XX:MaxMetaspaceSize=10m
-     *
+     * Metaspace并不在虚拟机内存中而是使用本地内存也即在Java8中, class metadata(the virtual machines internal presentation of Java class)，被存储在叫做Metaspace native memory。
      * @param args
      */
     public static void main(final String[] args) {
